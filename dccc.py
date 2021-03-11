@@ -20,8 +20,11 @@ class Entry:
         parts = in_str.split("-")
 
         part0 = parts[0].strip(" ")
-        # print(f"part0 = '{part0}'")
         month0 = part0.split(" ")[0]
+        month0 = month0.strip(" ")
+        # WTF??? FIRST ENTRY HAS A SPACE THAT'S UN-STRIPPABLE??!?!
+        # print(f"month0 = '{month0}', len {len(month0)}")
+
         sDay0  = part0.split(" ")[1]
         if int(sDay0) < 10:
             sDay0 = "0" + sDay0
@@ -87,8 +90,8 @@ class Entry:
         """
         self.name = name
         r = self.parseDayAndMonth(date_str)
-        self.date_start = YEAR + r[1] + r[0] + ALL_DATES_START_TIME
-        self.date_end   = YEAR + r[3] + r[2] + ALL_DATES_START_TIME
+        self.date_start = YEAR + r[0] + r[1] + ALL_DATES_START_TIME
+        self.date_end   = YEAR + r[2] + r[3] + ALL_DATES_START_TIME
 
 
 def parseInputFile(filepath):
