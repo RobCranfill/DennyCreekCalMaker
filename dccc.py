@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import csv
+import sys
+
 
 YEAR = "2021"
 ALL_DATES_START_TIME = "T000001"
@@ -23,7 +25,10 @@ class Entry:
         month0 = part0.split(" ")[0]
         month0 = month0.strip(" ")
         # WTF??? FIRST ENTRY HAS A SPACE THAT'S UN-STRIPPABLE??!?!
+        #  (it was a Byte Order Mark - the work of the devil!!!!!)
+        #
         # print(f"month0 = '{month0}', len {len(month0)}")
+        # print(f'{":".join("{:02x}".format(ord(c)) for c in month0)}')
 
         sDay0  = part0.split(" ")[1]
         if int(sDay0) < 10:
@@ -126,7 +131,12 @@ def printVCalFooter():
 
 
 if __name__ == "__main__":
-    data = parseInputFile("DCC-in1.csv")
+
+    if len(sys.argv) != 2:
+        print(f"Calling form: {sys.argv[0]} {{inputfile}}")
+        exit(1)
+
+    data = parseInputFile(sys.argv[1])
     # print(data)
 
     printVCalHeader()
